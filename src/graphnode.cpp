@@ -11,7 +11,9 @@ GraphNode::~GraphNode()
     //// STUDENT CODE
     ////
 
-    delete _chatBot; 
+    // Task 0: The commented out line below was the memory bug.
+    // The ChatLogic is the owner of _chatBot, so GraphNode has no business deleting _chatBot.
+    // delete _chatBot;
 
     ////
     //// EOF STUDENT CODE
