@@ -29,9 +29,9 @@ void GraphNode::AddEdgeToParentNode(GraphEdge *edge)
     _parentEdges.push_back(edge);
 }
 
-void GraphNode::AddEdgeToChildNode(GraphEdge *edge)
+void GraphNode::AddEdgeToChildNode(std::unique_ptr<GraphEdge> && edge) // Task 4
 {
-    _childEdges.push_back(edge);
+    _childEdges.emplace_back(std::move(edge));
 }
 
 //// STUDENT CODE
@@ -53,9 +53,9 @@ void GraphNode::MoveChatbotToNewNode(GraphNode *newNode)
 GraphEdge *GraphNode::GetChildEdgeAtIndex(int index)
 {
     //// STUDENT CODE
-    ////
+    //// Task 4
 
-    return _childEdges[index];
+    return _childEdges[index].get();
 
     ////
     //// EOF STUDENT CODE
