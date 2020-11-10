@@ -49,7 +49,7 @@ public:
     //// STUDENT CODE
     //// Task 5
 
-    void MoveChatbotHere(ChatBot && chatbot);
+    void MoveChatbotHere(ChatBot &&);
 
     ////
     //// EOF STUDENT CODE

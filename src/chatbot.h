@@ -37,6 +37,9 @@ public:
     ChatBot(ChatBot &&);
     ChatBot & operator=(ChatBot &&);
 
+    // This is used to keep ChatLogic's handle always pointing to the valid ChatBot instance
+    void updateChatLogicWithSelf();
+
 
     ////
     //// EOF STUDENT CODE

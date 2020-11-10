@@ -32,7 +32,7 @@ ChatLogic::~ChatLogic()
     ////
 
     // delete chatbot instance
-    delete _chatBot;
+    // delete _chatBot; // (Task 5 comments this out)
 
     // delete all nodes
     // (Task 3)
@@ -220,15 +220,17 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
         }
     }
 
+
+    // Create a chatBot on the stack, to be moved to the root node.
     ChatBot chatBot{"../images/chatbot.png"};
-    _chatBot = &chatBot; // we keep the handle to chatBot but ChatLogic shall not own this resource
-
-    // add pointer to chatlogic so that chatbot answers can be passed on to the GUI
-    chatBot.SetChatLogicHandle(this);
-
     chatBot.SetRootNode(rootNode);
+
+    // Once chatBot has a handle to this chatLogic,
+    // chatBot can update the handle to itself in chatLogic as it moves around.
+    chatBot.SetChatLogicHandle(this);
     
-    // add chatbot to graph root node
+    // Add chatbot to graph root node
+    // After this line, the member variable _chatBot should become valid
     rootNode->MoveChatbotHere(std::move(chatBot));
     
     ////

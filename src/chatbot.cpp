@@ -100,6 +100,10 @@ ChatBot & ChatBot::operator=(ChatBot && src){
     return *this;
 }
 
+void ChatBot::updateChatLogicWithSelf() {
+    _chatLogic->SetChatbotHandle(this);
+}
+
 ////
 //// EOF STUDENT CODE
 
