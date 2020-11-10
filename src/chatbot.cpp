@@ -36,6 +36,69 @@ ChatBot::~ChatBot()
 
 //// STUDENT CODE
 ////
+// (Task 2)
+
+ChatBot::ChatBot(const ChatBot & src){
+    std::cout << "ChatBot Copy Constructor" << std::endl;
+    
+    // copy data handles
+    _chatLogic = src._chatLogic;
+    _rootNode = src._rootNode;
+
+    // use copy ctor of wxBitmap to make a new _image in the heap
+    _image = std::make_unique<wxBitmap>(*(src._image));
+    /* Note that this does not make a true copy of the underlying image, it is only copying
+    the wxBitmap object. This is because of the way wxWidgets treats its copy ctor; see here:
+    https://docs.wxwidgets.org/3.0/classwx_bitmap.html#abfaa21ec563a64ea913af918150db900
+    We *could* make a real copy using wxBitmap::GetSubBitmap, but I don't wnat the chatbot
+    memory management philosophy to be fighting against that of a library that it is using.
+    I'm going to accept this situation as being a quirk that is internal to wxWidgets.
+    Someone using this chatbot would have to know that this is just how wxWidgets images get "copied."
+    */
+}
+
+ChatBot & ChatBot::operator=(const ChatBot & src){
+    std::cout << "ChatBot Copy Assignment" << std::endl;
+    
+    if (&src == this) return *this;
+
+    // copy data handles
+    _chatLogic = src._chatLogic;
+    _rootNode = src._rootNode;
+
+    // use copy ctor of wxBitmap to make a new _image in the heap
+    _image.reset(new wxBitmap(*(src._image)));
+    // Again, not a real copy of the underlying image. See above.
+
+    return *this;
+}
+
+ChatBot::ChatBot(ChatBot && src){
+    std::cout << "ChatBot Move Constructor" << std::endl;
+    
+    // copy data handles
+    _chatLogic = src._chatLogic;
+    _rootNode = src._rootNode;
+
+    // use move assignment of unqiue_ptr to steal the _image resouce, leaving src with an invalid _image
+    _image = std::move(src._image);
+}
+
+ChatBot & ChatBot::operator=(ChatBot && src){
+    std::cout << "ChatBot Move Assignment" << std::endl;
+    
+    if (&src == this) return *this;
+    // Should we protect against self move-assignment?? Really weird situation.
+
+    // copy data handles
+    _chatLogic = src._chatLogic;
+    _rootNode = src._rootNode;
+
+    // use move assignment of unqiue_ptr to steal the _image resouce, leaving src with an invalid _image
+    _image = std::move(src._image);
+
+    return *this;
+}
 
 ////
 //// EOF STUDENT CODE
