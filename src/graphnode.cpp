@@ -13,6 +13,7 @@ GraphNode::~GraphNode()
 
     // Task 0: The commented out line below was the memory bug.
     // The ChatLogic is the owner of _chatBot, so GraphNode has no business deleting _chatBot.
+    // (Note: the above statement is no longer true after Task 5 is completed)
     // delete _chatBot;
 
     ////
@@ -35,17 +36,16 @@ void GraphNode::AddEdgeToChildNode(std::unique_ptr<GraphEdge> && edge) // Task 4
 }
 
 //// STUDENT CODE
-////
-void GraphNode::MoveChatbotHere(ChatBot *chatbot)
+//// Task 5
+void GraphNode::MoveChatbotHere(ChatBot && chatbot)
 {
-    _chatBot = chatbot;
-    _chatBot->SetCurrentNode(this);
+    _chatBot = std::move(chatbot);
+    _chatBot.SetCurrentNode(this);
 }
 
 void GraphNode::MoveChatbotToNewNode(GraphNode *newNode)
 {
-    newNode->MoveChatbotHere(_chatBot);
-    _chatBot = nullptr; // invalidate pointer at source
+    newNode->MoveChatbotHere(std::move(_chatBot));
 }
 ////
 //// EOF STUDENT CODE
