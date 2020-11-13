@@ -82,6 +82,10 @@ ChatBot::ChatBot(ChatBot && src){
 
     // use move assignment of unqiue_ptr to steal the _image resouce, leaving src with an invalid _image
     _image = std::move(src._image);
+
+    // invalidate src's non-owned data handles
+    src._chatLogic = nullptr;
+    src._rootNode = nullptr;
 }
 
 ChatBot & ChatBot::operator=(ChatBot && src){
@@ -96,6 +100,10 @@ ChatBot & ChatBot::operator=(ChatBot && src){
 
     // use move assignment of unqiue_ptr to steal the _image resouce, leaving src with an invalid _image
     _image = std::move(src._image);
+
+    // invalidate src's non-owned data handles
+    src._chatLogic = nullptr;
+    src._rootNode = nullptr;
 
     return *this;
 }
