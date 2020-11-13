@@ -19,14 +19,19 @@ private:
 
     // data handles (owned)
     std::vector<std::unique_ptr<GraphNode>> _nodes; // Task 3
+
+    // data handles (not owned)
     std::vector<GraphEdge *> _edges;
+    // (These are only handles to edges. Note that raw pointers do not communicate ownership.
+    //  Throughout the project we have converted this codebase to a convention where smart
+    //  pointers communicate and enforce ownership.)
 
     ////
     //// EOF STUDENT CODE
 
     // data handles (not owned)
     GraphNode *_currentNode;
-    ChatBot *_chatBot;
+    ChatBot *_chatBot = nullptr; // This handle will become valid at the end of LoadAnswerGraphFromFile (Task 5)
     ChatBotPanelDialog *_panelDialog;
 
     // proprietary type definitions

@@ -44,6 +44,7 @@ ChatBot::ChatBot(const ChatBot & src){
     // copy data handles
     _chatLogic = src._chatLogic;
     _rootNode = src._rootNode;
+    _currentNode = src._currentNode;
 
     // use copy ctor of wxBitmap to make a new _image in the heap
     _image = std::make_unique<wxBitmap>(*(src._image));
@@ -65,6 +66,7 @@ ChatBot & ChatBot::operator=(const ChatBot & src){
     // copy data handles
     _chatLogic = src._chatLogic;
     _rootNode = src._rootNode;
+    _currentNode = src._currentNode;
 
     // use copy ctor of wxBitmap to make a new _image in the heap
     _image.reset(new wxBitmap(*(src._image)));
@@ -79,6 +81,7 @@ ChatBot::ChatBot(ChatBot && src){
     // copy data handles
     _chatLogic = src._chatLogic;
     _rootNode = src._rootNode;
+    _currentNode = src._currentNode;
 
     // use move assignment of unqiue_ptr to steal the _image resouce, leaving src with an invalid _image
     _image = std::move(src._image);
@@ -86,6 +89,7 @@ ChatBot::ChatBot(ChatBot && src){
     // invalidate src's non-owned data handles
     src._chatLogic = nullptr;
     src._rootNode = nullptr;
+    src._currentNode = nullptr;
 }
 
 ChatBot & ChatBot::operator=(ChatBot && src){
@@ -97,6 +101,7 @@ ChatBot & ChatBot::operator=(ChatBot && src){
     // copy data handles
     _chatLogic = src._chatLogic;
     _rootNode = src._rootNode;
+    _currentNode = src._currentNode;
 
     // use move assignment of unqiue_ptr to steal the _image resouce, leaving src with an invalid _image
     _image = std::move(src._image);
@@ -104,6 +109,7 @@ ChatBot & ChatBot::operator=(ChatBot && src){
     // invalidate src's non-owned data handles
     src._chatLogic = nullptr;
     src._rootNode = nullptr;
+    src._currentNode = nullptr;
 
     return *this;
 }

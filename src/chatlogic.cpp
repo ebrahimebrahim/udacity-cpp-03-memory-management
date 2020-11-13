@@ -17,8 +17,8 @@ ChatLogic::ChatLogic()
     //// STUDENT CODE
     //// Task 5
 
-    // this handle will become valid at the end of LoadAnswerGraphFromFile
-    _chatBot = nullptr;
+    //_chatBot = nullptr;
+
 
     
 
